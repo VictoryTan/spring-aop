@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="accountService" class="com.alibaba.spring.service.impl.AccountServiceImpl"></bean>
+
+    <!--通知类-->
+    <bean id="logger" class="com.alibaba.spring.utils.Logger"></bean>
+
+    <aop:config>
+        
+        <aop:pointcut id="pt1" expression="execution(* com.alibaba.spring.service.impl.*.*(..))"/>
+        <aop:aspect id="logAdvice" ref="logger">
+            <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
+        </aop:aspect>
+    </aop:config>
+</beans>
